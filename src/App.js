@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import PatientsTable from './components/patientsTable/PatientsTable';
+import AddPatient from './components/AddPatient/AddPatient';
+import './App.less';
 
-function App() {
+
+const App = () => {
+  //Data
+  const usersData = [
+    { key : 1 , name:"Ramy" , age : 23 , gender:"Male"},
+    { key : 2 , name:"Hoda" , age : 24 , gender:"Female"},
+  ];
+  
+  //States setting
+  const [users, setUsers] = useState(usersData);
+  
+  //Crud Operation 
+  const addUser = user => {
+		user.key = users.length + 1
+    setUsers([ ...users, user ])
+	}
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <main className="app">
+    <AddPatient addUser={addUser}></AddPatient>
+    <PatientsTable users={users}></PatientsTable>
+  </main>
+  )
 }
 
 export default App;
